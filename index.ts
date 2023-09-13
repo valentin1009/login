@@ -1,12 +1,22 @@
-import Fastify, { FastifyReply, FastifyRequest } from "fastify";
 import { PrismaClient } from "@prisma/client";
+import express from "express";
+import api from "./routes/index";
+import bodyParser from "body-parser";
 
 const prisma = new PrismaClient();
-const server = Fastify();
+const app = express()
+const port = 3000
 
+app.use(bodyParser.urlencoded())
 // Route to check if the server is running
-server.get("/ping", async (request, reply) => {
+app.get("/ping", async (request, reply) => {
     reply.send("Server is running!");
 });
 
-server.listen(3000);
+app.use('/api', api);
+
+app.listen( port, () => {
+    // tslint:disable-next-line:no-console
+    console.log( `server started at http://localhost:${ port }` );
+});
+export default app;
