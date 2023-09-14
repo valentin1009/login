@@ -16,6 +16,13 @@ export const login = async (userPayload: authRequestType) => {
         where: {
             email,
             password: md5(password)
+        },
+        select: {
+            email: true,
+            password: false,
+            name: true,
+            lat: true,
+            long: true,
         }
     });
 

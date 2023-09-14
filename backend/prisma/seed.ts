@@ -10,6 +10,8 @@ async function main() {
             email: 'alice@prisma.io',
             name: 'Alice',
             password: md5('testtest'),
+            lat: 44.428,
+            long: 26.0967
         },
     })
     const bob = await prisma.user.upsert({
@@ -19,6 +21,8 @@ async function main() {
             email: 'bob@prisma.io',
             name: 'Bob',
             password: md5('testtest'),
+            lat: 44.428,
+            long: 26.0967
         },
     })
     console.log({ alice, bob })

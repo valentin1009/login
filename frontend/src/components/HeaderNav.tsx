@@ -3,7 +3,6 @@ import {redirect, useNavigate} from "react-router-dom";
 import {useUser} from "../hooks/UserProdiver";
 
 function HeaderNav() {
-
     const navigate = useNavigate();
     const {isLogin, user, logout} = useUser();
 
@@ -17,16 +16,20 @@ function HeaderNav() {
                     <Menu>
                         <Menu.Item
                             name='home'
+                            onClick={() => navigate("/")}
                         />
-                        <Menu.Item
-                            name='dashboard'
-                        />
+                        {isLogin && (
+                            <Menu.Item
+                                name='dashboard'
+                                onClick={() => navigate("/dashboard")}
+                            />
+                        )}
 
                         <Menu.Menu position='right'>
                             <Menu.Item>
                                 {!isLogin ?
                                     <Button onClick={() => navigate("/signin")} primary>Login</Button> :
-                                    <>{user?.name} <Button onClick={() => logout()} primary>Logout</Button></>
+                                    <Button onClick={() => logout()} primary>Logout</Button>
                                 }
                             </Menu.Item>
                         </Menu.Menu>

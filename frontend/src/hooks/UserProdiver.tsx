@@ -2,16 +2,20 @@ import qs from "qs";
 import {createContext, ReactNode, useContext, useEffect, useMemo, useState} from "react";
 import {request} from "../utils/request";
 import {usePersistentState} from "./usePersistentState";
+import {toast} from "react-toastify";
 
 type UserType = {
     name: string;
     email: string;
+    lat: number | null;
+    long: number | null;
 }
 
 type UserProviderInterface = {
     user: UserType | null;
     setUser: (value: UserType | null) => void;
     isLogin: boolean;
+    loginLoading: boolean;
     login: (email: string, password: string) => void;
     logout: () => void;
 };
@@ -24,6 +28,7 @@ const defaultState = {
     user: null,
     setUser: () => {},
     isLogin: false,
+    loginLoading: false,
     login: () => {},
     logout: () => {},
 };
@@ -50,6 +55,7 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
             });
 
             setUser(response);
+            toast("Logged in successfully");
         } catch (e) {
 
             setLoginError("Invalid credentials");
@@ -67,7 +73,8 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
         setUser,
         isLogin,
         login,
-        logout
+        logout,
+        loginLoading
     }}>
         {children}
     </UserContext.Provider>

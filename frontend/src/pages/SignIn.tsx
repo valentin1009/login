@@ -4,7 +4,7 @@ import {useRef} from "react";
 
 function SignIn() {
 
-    const {login} = useUser();
+    const {login, loginLoading} = useUser();
     const emailRef= useRef<HTMLInputElement | null>(null);
     const passRef = useRef<HTMLInputElement | null>(null);
 
@@ -24,7 +24,7 @@ function SignIn() {
                     mobile={15}
                 >
                     <Segment>
-                        <Form onSubmit={handleLogin}>
+                        <Form loading={loginLoading} onSubmit={handleLogin}>
                             <Form.Field>
                                 <label>Enter Email</label>
                                 <input type="email" ref={emailRef} />
