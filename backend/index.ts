@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import express from "express";
+import express, {Request, Response} from "express";
 import api from "./routes/index";
 import bodyParser from "body-parser";
 
@@ -9,7 +9,7 @@ const port = 3001
 
 app.use(bodyParser.urlencoded())
 // Route to check if the server is running
-app.get("/ping", async (request, reply) => {
+app.get("/ping", (request: Request, reply: Response) => {
     reply.send("Server is running!");
 });
 
