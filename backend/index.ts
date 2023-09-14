@@ -2,10 +2,12 @@ import { PrismaClient } from "@prisma/client";
 import express, {Request, Response} from "express";
 import api from "./routes/index";
 import bodyParser from "body-parser";
+const cors = require('cors');
 
-const prisma = new PrismaClient();
 const app = express()
 const port = 3001
+
+app.use(cors())
 
 app.use(bodyParser.urlencoded())
 // Route to check if the server is running
