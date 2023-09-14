@@ -5,7 +5,7 @@ import bodyParser from "body-parser";
 
 const prisma = new PrismaClient();
 const app = express()
-const port = 3000
+const port = 3001
 
 app.use(bodyParser.urlencoded())
 // Route to check if the server is running
