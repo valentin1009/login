@@ -11,12 +11,15 @@ import Dashboard from "./pages/Dashboard";
 import HeaderNav from "./components/HeaderNav";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import {useUser} from "./hooks/UserProdiver";
 
 function App() {
-  return (
+
+    const {isLogin, user, logout} = useUser();
+    return (
       <>
           <BrowserRouter>
-            <HeaderNav />
+            <HeaderNav isLogin={isLogin} logout={logout} />
 
             <Routes>
                 <Route path="/" element={<PublicRoute restricted={false} component={Home} />} />
@@ -28,7 +31,7 @@ function App() {
             />
           </BrowserRouter>
       </>
-  );
+    );
 }
 
 export default App;

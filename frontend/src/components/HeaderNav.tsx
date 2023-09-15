@@ -2,9 +2,13 @@ import {Button, Dropdown, Grid, Menu} from "semantic-ui-react";
 import {redirect, useNavigate} from "react-router-dom";
 import {useUser} from "../hooks/UserProdiver";
 
-function HeaderNav() {
+type TProps = {
+    isLogin: boolean;
+    logout: () => void;
+}
+
+function HeaderNav({ isLogin, logout }: TProps) {
     const navigate = useNavigate();
-    const {isLogin, user, logout} = useUser();
 
     return (
         <Grid centered>
