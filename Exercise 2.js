@@ -7,9 +7,9 @@ const fs = require('fs');
 function readFile(path, callback) {
     fs.readFile(path, 'utf8', (err, data) => {
         if (err) {
-            callback(err);
+            callback(null, err);
         } else {
-            callback(data);
+            callback(data, null);
         }
     });
 }
@@ -22,7 +22,12 @@ function writeFile(path, data, callback) {
         }
     });
 }
-readFile('input.txt', data => {
+readFile('input.txt', (data, error) => {
+    if (error) {
+        console.error('There is a problem with the input file');
+        return false;
+    }
+
     const newData = data.toUpperCase();
     writeFile('output.txt', newData, () => {
         console.log('File written successfully');
