@@ -8,7 +8,15 @@ type authRequestType = {
     email: string;
     password: string;
 }
-export const login = async (userPayload: authRequestType) => {
+
+export type UserSimple = {
+    name: string;
+    email: string;
+    lat: number | null;
+    long: number | null;
+}
+
+export const login = async (userPayload: authRequestType): Promise<UserSimple | never> => {
     const email = userPayload.email?.trim();
     const password = userPayload.password?.trim();
 

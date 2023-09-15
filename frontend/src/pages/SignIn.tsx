@@ -1,10 +1,10 @@
-import {Form, Grid, Segment} from "semantic-ui-react";
+import {Form, Grid, Message, Segment} from "semantic-ui-react";
 import {useUser} from "../hooks/UserProdiver";
 import {useRef} from "react";
 
 function SignIn() {
 
-    const {login, loginLoading} = useUser();
+    const {login, loginLoading, loginError} = useUser();
     const emailRef= useRef<HTMLInputElement | null>(null);
     const passRef = useRef<HTMLInputElement | null>(null);
 
@@ -24,7 +24,12 @@ function SignIn() {
                     mobile={15}
                 >
                     <Segment>
-                        <Form loading={loginLoading} onSubmit={handleLogin}>
+                        <Form loading={loginLoading} error={!!loginError} onSubmit={handleLogin}>
+                            {loginError && <Message
+                                error
+                                header='Error'
+                                content={loginError}
+                            />}
                             <Form.Field>
                                 <label>Enter Email</label>
                                 <input type="email" ref={emailRef} />

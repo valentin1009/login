@@ -18,6 +18,7 @@ type UserProviderInterface = {
     loginLoading: boolean;
     login: (email: string, password: string) => void;
     logout: () => void;
+    loginError: string | null;
 };
 
 type Props = {
@@ -31,6 +32,7 @@ const defaultState = {
     loginLoading: false,
     login: () => {},
     logout: () => {},
+    loginError: null,
 };
 
 export const UserContext = createContext<UserProviderInterface>(defaultState);
@@ -48,6 +50,7 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
 
     const login = async (email: string, password: string) => {
         setLoginLoading(true);
+        setLoginError(null);
 
         try {
             const response = await request<UserType>("http://localhost:3001/api/user/auth", {
@@ -57,7 +60,6 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
             setUser(response);
             toast("Logged in successfully");
         } catch (e) {
-
             setLoginError("Invalid credentials");
         } finally {
             setLoginLoading(false);
@@ -74,7 +76,8 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
         isLogin,
         login,
         logout,
-        loginLoading
+        loginLoading,
+        loginError
     }}>
         {children}
     </UserContext.Provider>

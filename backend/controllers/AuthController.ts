@@ -23,7 +23,7 @@ async function auth(req: TypedRequestBody<{email: string, password: string}>, re
     } catch (error) {
         return res.status(403).json({
             success: false,
-            errors: [error.message],
+            errors: [(error as Error).message],
         });
     }
 }

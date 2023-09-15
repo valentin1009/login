@@ -11,7 +11,13 @@ export function request<TResponse>(
     config.headers = headers;
 
     return fetch(url, config)
-        .then((response) => response.json())
-        .then((data) => data as TResponse)
-        .catch(err => err);
+        .then(async (response) => {
+            const parsedJson = await response.json();
+            if (response.ok) {
+                return parsedJson;
+            }
+
+            throw Error(parsedJson.errors[0]);
+        })
+        .then((data) => data as TResponse);
 }
